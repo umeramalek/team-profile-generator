@@ -1,10 +1,16 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
 
+const manager = require("./lib/manager");
+const engineer = require("./lib/engineer");
+const intern = require("./lib/intern");
+
+
+var prompts = [];
 
 function writeData()
 {
-    let output = gen.generateHTML(arr);
+    let output = gen.generateHTML(prompts);
     fs.writeFile('output.html', output, (err) =>
     err ? console.error(err) : console.log('Success!')
     );
@@ -39,11 +45,9 @@ return inquirer
      
   ])
   .then((response) => {
-    let newManager = newManager(response.name, response.id, response.email, response.office);
-    arr.push(newManager);
+    let newManager = new manager(response.name, response.id, response.email, response.office);
+    prompts.push(newManager);
     employeePrompt();
-
-
   }
   );
 
@@ -51,7 +55,7 @@ return inquirer
 
 function employeePrompt() {
 
-  return inquirer
+   inquirer
     
   .prompt([
       {
@@ -102,13 +106,19 @@ function employeePrompt() {
     ])
     .then((response) => {
       if (response.employeeRole === "Engineer"){
-      let newEngineer = newEngineer(response.name,response.id,response.email,response.github);
-      arr.push(newEngineer);
+      let newEngineer = new engineer(response.name,response.id,response.email,response.github);
+      prompts.push(newEngineer);
       } else {
-      let newIntern = newIntern(response.name,response.id,response.email,response.school);
-      arr.push(newIntern);
+      let newIntern = new intern(response.name,response.id,response.email,response.school);
+      prompts.push(newIntern);
       }
-      writeData();
+      // confirm function, if more is chosen the re run the employee prompt
+      if (response.more){
+        employeePrompt();
+      } else{
+        writeData();
+      }
+  
 
     }
     );
@@ -117,7 +127,7 @@ function employeePrompt() {
   
   function init(){
     managerPrompt();
-    employeePrompt();
+
   }
 
   init();
