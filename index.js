@@ -50,7 +50,45 @@ return inquirer
 
 }
 
+function employeePrompt() {
 
+  return inquirer
+    
+  .prompt([
+      {
+        type: 'list',
+        message: 'Whats the employee role?',
+        choices: ["Engineer", "Intern"],
+        name: 'employeeRole]',
+      },
+      {
+        type: 'input',
+        message: 'Enter employee name?',
+        name: 'name',
+      },
+      {
+          type: 'input',
+          message: 'Enter employee id?',
+          name: 'id',
+        },
+        {
+          type: 'input',
+          message: 'Enter employee email?',
+          name: 'email',
+        },
+       
+    ])
+    .then((response) => {
+      let newManager = newManager(response.name,response.id,response.email,response.office);
+      arr.push(newManager);
+      
+  
+  
+    }
+    );
+  
+  }
+  
 
 
 
