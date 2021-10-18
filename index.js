@@ -1,5 +1,6 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
+const { isNumberObject } = require("util/types");
 
 
 
@@ -59,7 +60,7 @@ function employeePrompt() {
         type: 'list',
         message: 'Whats the employee role?',
         choices: ["Engineer", "Intern"],
-        name: 'employeeRole]',
+        name: 'employeeRole',
       },
       {
         type: 'input',
@@ -77,13 +78,39 @@ function employeePrompt() {
           name: 'email',
         },
        
+      // when: (Function, Boolean) Receive the current user answers hash and should return true or false depending on whether or not this question should be asked. The value can also be a simple boolean.
+      // using the when function - if engineer picked ask for git and if intern then ask for school
+      {
+        type: 'input',
+        message: 'Enter engineers github username: ',
+        when: (input) => input.employeeRole == "Engineer",
+        name: 'github',
+      },
+      {
+        type: 'input',
+        message: 'Enter interns school: ',
+        when: (input) => input.employeeRole == "Intern",
+        name: 'school',
+      },
+      // confirm type to tell the user if they want to add more employees
+      {
+        type: 'confirm',
+        message: 'Do you want to add more employees?',
+        default: false,
+        name: "more",
+      }
+
+
     ])
     .then((response) => {
-      let newManager = newManager(response.name,response.id,response.email,response.office);
-      arr.push(newManager);
-      
-  
-  
+      if (response.employeeRole === "Engineer"){
+      let newEngineer = newEngineer(response.name,response.id,response.email,response.github);
+      arr.push(newEngineer);
+      } else {
+      let newIntern = newIntern(response.name,response.id,response.email,response.school);
+      arr.push(newIntern);
+      }
+
     }
     );
   
