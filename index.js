@@ -1,7 +1,5 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
-const { isNumberObject } = require("util/types");
-
 
 
 function writeData()
@@ -41,9 +39,9 @@ return inquirer
      
   ])
   .then((response) => {
-    let newManager = newManager(response.name,response.id,response.email,response.office);
+    let newManager = newManager(response.name, response.id, response.email, response.office);
     arr.push(newManager);
-    
+    employeePrompt();
 
 
   }
@@ -110,12 +108,19 @@ function employeePrompt() {
       let newIntern = newIntern(response.name,response.id,response.email,response.school);
       arr.push(newIntern);
       }
+      writeData();
 
     }
     );
   
   }
   
+  function init(){
+    managerPrompt();
+    employeePrompt();
+  }
+
+  init();
 
 
 
