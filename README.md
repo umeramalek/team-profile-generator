@@ -12,7 +12,7 @@ This is a Node js command line application that takes in information on about em
 2. run jest test with "npm run test"
 
 ## Mock Up
-![](img/)
+![](img/mock-up.png)
 
 ## Built With
 
