@@ -1,6 +1,8 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
 
+const generateHTML = require("./lib/generateHTML");
+
 const manager = require("./lib/manager");
 const engineer = require("./lib/engineer");
 const intern = require("./lib/intern");
@@ -10,8 +12,8 @@ var prompts = [];
 
 function writeData()
 {
-    let output = gen.generateHTML(prompts);
-    fs.writeFile('output.html', output, (err) =>
+    let output = generateHTML.generateHTML(prompts);
+    fs.writeFile('./dist/output.html', output, (err) =>
     err ? console.error(err) : console.log('Success!')
     );
 }
