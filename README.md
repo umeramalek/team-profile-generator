@@ -11,6 +11,11 @@ This is a Node js command line application that takes in information on about em
 1. generate HTML with "node index.js"
 2. run jest test with "npm run test"
 
+
+## Walkthrough Video
+* [See Live Site](#) https://drive.google.com/file/d/1UAaDo4KYaL_aHb66HH87rQLPPlNfV8jR/view
+
+
 ## Mock Up
 ![](img/mock-up.png)
 
